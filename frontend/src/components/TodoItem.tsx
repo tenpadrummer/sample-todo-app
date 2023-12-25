@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { deleteTodo } from '../api';
 import TodoEditForm from './TodoEditForm';
 
 type Todo = {
@@ -10,9 +11,10 @@ type Todo = {
 
 type TodoItemProps = {
   todo: Todo;
+  onDelete: (todoId: number) => void;
 };
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => {
@@ -23,6 +25,16 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     setIsEditing(false);
   };
 
+  const handleDeleteClick = async () => {
+    try {
+      await deleteTodo(todo.id);
+
+      onDelete(todo.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {!isEditing ? (
@@ -30,6 +42,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           <h3>{todo.title}</h3>
           <p>{todo.description}</p>
           <button onClick={handleEditClick}>Edit</button>
+          <button onClick={handleDeleteClick}>Delete</button>
         </div>
       ) : (
         <TodoEditForm todo={todo} onEdit={handleEditCancel} />

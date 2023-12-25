@@ -31,3 +31,13 @@ export const updateTodo = async (todoId: number, todoData: any) => {
     throw error;
   }
 }
+
+export const deleteTodo = async (todoId: number) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/todos/${todoId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error while deleting todo:', error);
+    throw error;
+  }
+}
