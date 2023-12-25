@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoItem from './TodoItem';
 
 type Todo = {
   id: number;
@@ -13,14 +14,11 @@ type TodoListProps = {
 
 const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
-    <ul className="todo-list">
+    <div>
       {todos.map((todo) => (
-        <li key={todo.id}>
-          <h3>{todo.title}</h3>
-          <p>{todo.description}</p>
-        </li>
+        <TodoItem key={todo.id} todo={todo} />
       ))}
-    </ul>
+    </div>
   );
 };
 
