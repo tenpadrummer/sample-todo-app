@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getTodos } from './api';
 import './App.css';
 import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
 // Todoの型定義
 type Todo = {
@@ -32,11 +33,7 @@ const App = () => {
     <div className="container">
       <h1>ToDo List</h1>
       <TodoForm />
-      <ul>
-        {todos.map((todo: any) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul>
+      <TodoList todos={todos} />
     </div>
   );
 };
